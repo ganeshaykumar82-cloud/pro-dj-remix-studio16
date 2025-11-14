@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pro DJ Remix Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-color: #111827; /* bg-gray-900 */
+      }
+      
+      /* New Rainbow Background Theme */
+      @keyframes rainbow-background-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .rainbow-theme-bg {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: rainbow-background-flow 15s ease infinite;
+      }
+
+      /* New Black Theme */
+      .black-theme-bg {
+        background-color: #0d0d0d;
+        background-image:
+            radial-gradient(at 0% 0%, hsla(0, 0%, 100%, 0.05) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, hsla(0, 0%, 100%, 0.05) 0px, transparent 50%);
+      }
+
+      /* Custom Fader Styles */
+      input[type=range].custom-fader {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      /* Track */
+      input[type=range].custom-fader::-webkit-slider-runnable-track {
+        background: #4b5563; /* gray-600 */
+        height: 4px;
+        border-radius: 2px;
+      }
+      input[type=range].custom-fader::-moz-range-track {
+        background: #4b5563; /* gray-600 */
+        height: 4px;
+        border-radius: 2px;
+      }
+      
+      /* Thumb */
+      input[type=range].custom-fader::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        margin-top: -8px; /* Vertically center */
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: none;
+      }
+      input[type=range].custom-fader::-moz-range-thumb {
+        border: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+
+      /* New Rainbow Gradient Animation */
+      @keyframes rainbow-scroll {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+      }
+      .rainbow-gradient-bg, .rainbow-gradient-bg-reverse {
+        background: linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+        background-size: 200% 200%;
+      }
+      .rainbow-gradient-bg {
+        animation: rainbow-scroll 3s linear infinite;
+      }
+      .rainbow-gradient-bg-reverse {
+        animation: rainbow-scroll 3s linear infinite reverse;
+      }
+      .rainbow-text {
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      
+      /* New Title Animation */
+      @keyframes title-gradient-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .title-text {
+        background: linear-gradient(90deg, #f87171, #fb923c, #facc15, #a3e635, #4ade80, #34d399, #22d3ee, #60a5fa, #818cf8, #a78bfa, #e879f9, #f472b6, #f87171);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: title-gradient-flow 6s ease-in-out infinite;
+      }
+
+      /* Hue-rotate Rainbow Animation (kept for fader thumbs) */
+      @keyframes rainbow-cycle {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+      }
+
+      .animate-rainbow {
+        animation: rainbow-cycle 4s linear infinite;
+      }
+      .animate-rainbow-reverse {
+        animation: rainbow-cycle 4s linear infinite reverse;
+      }
+
+      .fader-rainbow-A::-webkit-slider-thumb { background: #22d3ee; animation: rainbow-cycle 4s linear infinite; }
+      .fader-rainbow-A::-moz-range-thumb { background: #22d3ee; animation: rainbow-cycle 4s linear infinite; }
+
+      .fader-yellow::-webkit-slider-thumb { background: #facc15; }
+      .fader-yellow::-moz-range-thumb { background: #facc15; }
+
+      .fader-rainbow-B::-webkit-slider-thumb { background: #e879f9; animation: rainbow-cycle 4s linear infinite reverse; }
+      .fader-rainbow-B::-moz-range-thumb { background: #e879f9; animation: rainbow-cycle 4s linear infinite reverse; }
+
+      /* Rainbow Crossfader */
+      input[type=range].crossfader-rainbow {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+        height: 12px; /* h-3 */
+      }
+      input[type=range].crossfader-rainbow::-webkit-slider-runnable-track {
+        height: 12px; /* h-3 */
+        border-radius: 9999px; /* rounded-full */
+        background: linear-gradient(90deg, #f87171, #fb923c, #facc15, #a3e635, #4ade80, #34d399, #22d3ee, #60a5fa, #818cf8, #a78bfa, #e879f9, #f472b6, #f87171);
+        background-size: 300% 300%;
+        animation: title-gradient-flow 6s ease-in-out infinite;
+      }
+      input[type=range].crossfader-rainbow::-moz-range-track {
+        height: 12px;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #f87171, #fb923c, #facc15, #a3e635, #4ade80, #34d399, #22d3ee, #60a5fa, #818cf8, #a78bfa, #e879f9, #f472b6, #f87171);
+        background-size: 300% 300%;
+        animation: title-gradient-flow 6s ease-in-out infinite;
+      }
+
+      input[type=range].crossfader-rainbow::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        margin-top: -4px; /* center 20px thumb on 12px track */
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        border: 2px solid #1f2937; /* gray-800 */
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+      input[type=range].crossfader-rainbow::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        border: 2px solid #1f2937;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+
+      /* Custom EQ Slider Styles */
+      input[type=range].eq-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+      }
+      input[type=range].eq-slider::-webkit-slider-runnable-track {
+        background: #374151; /* gray-700 */
+        height: 4px;
+        border-radius: 2px;
+      }
+      input[type=range].eq-slider::-moz-range-track {
+        background: #374151; /* gray-700 */
+        height: 4px;
+        border-radius: 2px;
+      }
+      input[type=range].eq-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        margin-top: -6px; /* (16px thumb - 4px track) / -2 */
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #22d3ee; /* cyan-400 */
+      }
+      input[type=range].eq-slider::-moz-range-thumb {
+        border: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #22d3ee; /* cyan-400 */
+      }
+
+      /* Deck Library Browser Animation */
+      @keyframes fade-in-up {
+          from {
+              opacity: 0;
+              transform: translateY(10px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      .animate-fade-in-up {
+          animation: fade-in-up 0.3s ease-out forwards;
+      }
+
+      /* Fire Animation for Drum Pads */
+      @keyframes fire-burst {
+        0% {
+          transform: scale(0.5);
+          opacity: 1;
+          box-shadow: 
+            0 0 5px 2px rgba(255, 255, 150, 0.9),
+            0 0 15px 8px rgba(255, 180, 0, 0.7),
+            0 0 30px 15px rgba(255, 100, 0, 0.5),
+            0 0 50px 25px rgba(255, 0, 0, 0.3);
+        }
+        100% {
+          transform: scale(1.5);
+          opacity: 0;
+          box-shadow: 
+            0 0 30px 20px rgba(255, 255, 150, 0),
+            0 0 60px 40px rgba(255, 180, 0, 0),
+            0 0 100px 60px rgba(255, 100, 0, 0),
+            0 0 150px 80px rgba(255, 0, 0, 0);
+        }
+      }
+      .fire-animation {
+        animation: fire-burst 0.5s ease-out forwards;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.19.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

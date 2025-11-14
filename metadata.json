@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Pro DJ Remix Studio16",
+  "description": "A professional-grade DJ remixing software with dual decks, a full-featured mixer, FX panel, 10-band equalizer, performance pads, and a music library. Upload your tracks and start mixing like a pro.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
